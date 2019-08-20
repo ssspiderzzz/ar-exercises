@@ -19,4 +19,12 @@ class Store < ActiveRecord::Base
     end
   end
 
+  before_destroy :saveable?
+
+  def saveable?
+    if self.employees.size > 2
+      raise "Destroy aborted; this will kill too many people, you can't do that!"
+    end
+  end
+
 end
